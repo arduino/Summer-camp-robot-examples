@@ -1,9 +1,9 @@
 #include <Svante.h>
 #include <IRremote.h>
 
-int recieverPin = DP0;
+int receiverPin = DP0;
 
-IRrecv reciever(recieverPin);
+IRrecv receiver(receiverPin);
 
 decode_results results;
 
@@ -14,12 +14,12 @@ boolean checkTimer = false;
 
 void setup(){
   Serial.begin(9600);
-  reciever.enableIRIn(); // Start the receiver
+  receiver.enableIRIn(); // Start the receiver
 }
 
 void loop() {
   
-  if (reciever.decode(&results)) {
+  if (receiver.decode(&results)) {
     if(results.value == 0xE4B3B847) Serial.println("+");
     else if(results.value == 0xE4B3F00F) Serial.println("-");
     else if(results.value == 0xE4B308F7) Serial.println("UP");
@@ -28,7 +28,7 @@ void loop() {
     else if(results.value == 0xE4B3F807) Serial.println("RIGHT");
     else if(results.value == 0xE4B310EF) Serial.println("MIDDLE");
     
-    reciever.resume(); // Receive the next value
+    receiver.resume(); // Receive the next value
     
     //reset timer
     previousMillis = millis();

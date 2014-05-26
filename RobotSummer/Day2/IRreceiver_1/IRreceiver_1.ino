@@ -1,21 +1,21 @@
 #include <Svante.h>
 #include <IRremote.h>
 
-int recieverPin = DP0;
+int receiverPin = DP0;
 
-IRrecv reciever(recieverPin);
+IRrecv receiver(receiverPin);
 
 decode_results results;
 
 void setup()
 {
   Serial.begin(9600); //Starts serail communication
-  reciever.enableIRIn(); // Start the receiver
+  receiver.enableIRIn(); // Start the receiver
 }
 
 void loop() {
-  if (reciever.decode(&results)) {
+  if (receiver.decode(&results)) {
     Serial.println(results.value, HEX); //Prints the readings to the serial monitor
-    reciever.resume(); // Receive the next value
+    receiver.resume(); // Receive the next value
   }
 }
