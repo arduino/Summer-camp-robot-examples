@@ -6,12 +6,9 @@ int echoR =DP9;
 int trigL = DP1;
 int echoL =DP0;
 
-int threshhold = 50;
-
 void setup(){  
   //Initialize the serial communication
   Serial.begin(9600); 
-  robot.begin();
 }
 
 void loop(){
@@ -19,23 +16,10 @@ void loop(){
   int disR = getDistance(trigR, echoR);
   int disL = getDistance(trigL, echoL);
   
-  if(disL<threshhold && disR<threshhold){
-    Serial.println("In front!");
-    robot.go(100, 100);
-  }
-  else if(disL<threshhold){
-    Serial.println("To the left!");
-    robot.go(10, 100);
-  }
-  else if(disR<threshhold) {
-    Serial.println("To the right!");
-    robot.go(100, 10);
-  }
-  else {
-    Serial.println("Nothing there!");
-    robot.stop();
-  }
-
+  Serial.print("Left distance: ");
+  Serial.print(disL);
+  Serial.print("  Right distance: ");
+  Serial.println(disR);
   delay(100);
 }
 
@@ -52,6 +36,5 @@ int getDistance(int triggerPin, int echoPin){
   int duration = pulseIn(echoPin, HIGH, 11800);
   int distance = constrain(duration/29/2, 0, 200);
   if(distance==0)distance=200;
-
   return distance;
 }

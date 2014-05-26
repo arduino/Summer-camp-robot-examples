@@ -1,17 +1,23 @@
 
 #include <Svante.h>
+#include <Servo.h>
+
 
 int trigR = DP10;
 int echoR =DP9;
 int trigL = DP1;
 int echoL =DP0;
 
-int threshhold = 50;
+int threshold = 50;
+
+Servo tail;
+int servoPin = DP8;
 
 void setup(){  
   //Initialize the serial communication
   Serial.begin(9600); 
   robot.begin();
+  tail.attach(servoPin);
 }
 
 void loop(){
@@ -19,24 +25,32 @@ void loop(){
   int disR = getDistance(trigR, echoR);
   int disL = getDistance(trigL, echoL);
   
-  if(disL<threshhold && disR<threshhold){
+  if(disL<threshold && disR<threshold){
     Serial.println("In front!");
     robot.go(100, 100);
+    wiggleTail();
   }
-  else if(disL<threshhold){
+  else if(disL<threshold){
     Serial.println("To the left!");
     robot.go(10, 100);
+    wiggleTail();
   }
-  else if(disR<threshhold) {
+  else if(disR<threshold) {
     Serial.println("To the right!");
-    robot.go(100, 10);
+    robot.go(100, 10);  
+    wiggleTail();
   }
   else {
     Serial.println("Nothing there!");
     robot.stop();
   }
+}
 
-  delay(100);
+void wiggleTail(){
+    tail.write(45); 
+    delay(100);
+    tail.write(135);
+    delay(100);
 }
 
 

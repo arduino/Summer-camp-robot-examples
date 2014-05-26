@@ -11,7 +11,6 @@ int threshhold = 50;
 void setup(){  
   //Initialize the serial communication
   Serial.begin(9600); 
-  robot.begin();
 }
 
 void loop(){
@@ -19,22 +18,10 @@ void loop(){
   int disR = getDistance(trigR, echoR);
   int disL = getDistance(trigL, echoL);
   
-  if(disL<threshhold && disR<threshhold){
-    Serial.println("In front!");
-    robot.go(100, 100);
-  }
-  else if(disL<threshhold){
-    Serial.println("To the left!");
-    robot.go(10, 100);
-  }
-  else if(disR<threshhold) {
-    Serial.println("To the right!");
-    robot.go(100, 10);
-  }
-  else {
-    Serial.println("Nothing there!");
-    robot.stop();
-  }
+  if(disL<threshhold && disR<threshhold) Serial.println("In front!");
+  else if(disL<threshhold) Serial.println("To the left!");
+  else if(disR<threshhold) Serial.println("To the right!");
+  else Serial.println("Nothing there!");
 
   delay(100);
 }
