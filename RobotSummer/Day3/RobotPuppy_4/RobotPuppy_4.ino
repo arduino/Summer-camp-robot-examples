@@ -11,7 +11,7 @@ int echoL =DP0;
 int threshold = 50;
 
 Servo tail;
-int servoPin = DP8;
+int servoPin = DP4;
 
 void setup(){  
   //Initialize the serial communication

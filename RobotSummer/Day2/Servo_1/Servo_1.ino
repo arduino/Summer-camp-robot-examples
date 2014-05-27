@@ -3,7 +3,7 @@
 #include <Servo.h> 
  
 Servo myservo;  // create servo object to control a servo 
-int servoPin = DP8;  
+int servoPin = DP4;  
     
 void setup() { 
   myservo.attach(servoPin);  // attaches the servo on pin DP8 to the servo object 

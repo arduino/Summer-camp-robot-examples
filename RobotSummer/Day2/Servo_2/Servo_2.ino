@@ -6,7 +6,7 @@
 #include <Servo.h> 
  
 Servo myservo;  // create servo object to control a servo 
-int servoPin = DP8;                // a maximum of eight servo objects can be created 
+int servoPin = DP4;                // a maximum of eight servo objects can be created 
  
 int pos = 0;    // variable to store the servo position 
  
