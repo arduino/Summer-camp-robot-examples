@@ -1,26 +1,46 @@
+/*
+  RobotPuppy_2
+ 
+ This example uses two ultrasonic sensors. The left one is connected to DP4 and
+ the right one to A1 on the Svante robot. When the distance to an object for each
+ sensor is calculated we can see if the object is in front, to the left or to the 
+ right of the robot. This information is printed to the serial monitor.
+ 
+ This is an example from the Svante robot summer camp.
+ zgz.verkstad.cc 
+ (c) 2014 Arduino Verkstad
+ */
 
 #include <Svante.h>
 
-int trigR = DP10;
-int echoR =DP9;
-int trigL = DP1;
-int echoL =DP0;
+int trigR = A1;
+int echoR = A1;
+int trigL = DP8;
+int echoL = DP8;
 
-int threshhold = 50;
+int threshold = 50; //threshold distance 
 
 void setup(){  
-  //Initialize the serial communication
-  Serial.begin(9600); 
+  Serial.begin(9600);   //Initializes the serial communication
 }
 
 void loop(){
-  //Get the distance in cm
-  int disR = getDistance(trigR, echoR);
-  int disL = getDistance(trigL, echoL);
+  int disR = getDistance(trigR, echoR); //Gets right distance
+  int disL = getDistance(trigL, echoL); //Gets left distance
   
-  if(disL<threshhold && disR<threshhold) Serial.println("In front!");
-  else if(disL<threshhold) Serial.println("To the left!");
-  else if(disR<threshhold) Serial.println("To the right!");
+  //If the distance is less than the threshold on both sensors,
+  //The object is in front of the robot
+  if(disL<threshold && disR<threshold) Serial.println("In front!");  
+  
+  //If the distance is less than the threshold on the left sensor,
+  //The object is to the left
+  else if(disL<threshold) Serial.println("To the left!");
+  
+  //If the distance is less than the threshold on the right sensor,
+  //The object is to the right
+  else if(disR<threshold) Serial.println("To the right!");
+  
+  //If the sensor readings aren't less than the threshold, there's no object there
   else Serial.println("Nothing there!");
 
   delay(100);
