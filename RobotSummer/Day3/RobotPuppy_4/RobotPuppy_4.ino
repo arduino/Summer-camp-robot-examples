@@ -23,7 +23,8 @@ int echoR = A1;
 int trigL = DP8;
 int echoL = DP8;
 
-int threshold = 50;
+int threshold = 70;
+int stopThreshold = 10;
 
 Servo tail;
 int servoPin = DP4;
@@ -38,19 +39,23 @@ void loop(){
   int disR = getDistance(trigR, echoR);
   int disL = getDistance(trigL, echoL);
   
-  if(disL<threshold && disR<threshold){
-    Serial.println("In front!");
-    robot.go(100, 100);                  //If object is in front, make the robot go forward                  //If object is in front, make the robot go forward
+  if(disL<stopThreshold || disR<stopThreshold) {
+    Serial.println("Too close!");
+    robot.stop();                        //If the robot gets too close to something, stop the robot
     wiggleTail();                        //And wiggle the tail
+  }
+  else if(disL<threshold && disR<threshold){  Serial.println("In front!");
+    robot.go(70, 70);                  //If object is in front, make the robot go forward                  //If object is in front, make the robot go forward
+    wiggleTail();                      //And wiggle the tail
   }
   else if(disL<threshold){
     Serial.println("To the left!");
-    robot.go(10, 100);                  //If object is to the left, make the robot turn left
+    robot.go(10, 70);                  //If object is to the left, make the robot turn left
     wiggleTail();                       //And wiggle the tail
   }
   else if(disR<threshold) {
     Serial.println("To the right!");
-    robot.go(100, 10);                  //If object is to the right, make the robot turn lefrightt  
+    robot.go(70, 10);                  //If object is to the right, make the robot turn lefrightt  
     wiggleTail();                       //And wiggle the tail
   }
   else {
