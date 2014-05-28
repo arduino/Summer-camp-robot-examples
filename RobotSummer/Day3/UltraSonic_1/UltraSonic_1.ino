@@ -1,22 +1,33 @@
+/*
+  UltraSonic_1
+ 
+ This example reads the distance to an object with an ultrasonic sensor and
+ prints it to the serial monitor. The ultrasonic sensor is connected to 
+ DP8 on the Svante robot.
+ 
+ This is an example from the Svante robot summer camp.
+ zgz.verkstad.cc 
+ (c) 2014 Arduino Verkstad
+ */
 
 #include <Svante.h>
-int trig = DP1;
-int echo = DP0;
+int trig = DP8;
+int echo = DP8;
 
 void setup(){  
-  //Initialize the serial communication
-  Serial.begin(9600); 
+  Serial.begin(9600);  //Initializes the serial communication
 }
 
 void loop(){
-  //Get the distance in cm
-  int dis = getDistance(trig, echo);
+  int dis = getDistance(trig, echo);   //Gets the distance in cm
   
-  Serial.println(dis);
+  Serial.println(dis); //Prints the distance to the serial monitor
   delay(100);
 }
 
 
+//This function calculates and returns the distance in cm to the 
+//closest object in front of the sensor.
 int getDistance(int triggerPin, int echoPin){
   
   pinMode(triggerPin, OUTPUT);

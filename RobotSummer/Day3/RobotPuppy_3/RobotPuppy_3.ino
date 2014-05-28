@@ -1,39 +1,54 @@
-
+/*
+  RobotPuppy_3
+ 
+ This example uses two ultrasonic sensors to check wether an object is in front, 
+ to the left, or the right of the robot. The left sensor is connected to DP4 and
+ the right one to A1 on the Svante robot. When we now where the object is the 
+ robot wheels are controlled to move towards the object.
+ 
+ This is an example from the Svante robot summer camp.
+ zgz.verkstad.cc 
+ (c) 2014 Arduino Verkstad
+ */
+ 
 #include <Svante.h>
 
-int trigR = DP10;
-int echoR =DP9;
-int trigL = DP1;
-int echoL =DP0;
+int trigR = A1;
+int echoR = A1;
+int trigL = DP8;
+int echoL = DP8;
 
-int threshhold = 50;
+int threshold = 70;
+int stopThreshold = 10;
 
 void setup(){  
-  //Initialize the serial communication
-  Serial.begin(9600); 
-  robot.begin();
+  Serial.begin(9600);  //Initializes the serial communication
+  robot.begin();       //Initializes the Svante library
 }
 
 void loop(){
-  //Get the distance in cm
   int disR = getDistance(trigR, echoR);
   int disL = getDistance(trigL, echoL);
   
-  if(disL<threshhold && disR<threshhold){
+  if(disL<stopThreshold || disR<stopThreshold) {
+    Serial.println("Too close!");
+    robot.stop();                       //If the robot gets too close to something, stop the robot
+  }
+  else if(disL<threshold && disR<threshold){
     Serial.println("In front!");
-    robot.go(100, 100);
+    robot.go(70, 70);                  //If object is in front, make the robot go forward
   }
-  else if(disL<threshhold){
+  else if(disL<threshold){
     Serial.println("To the left!");
-    robot.go(10, 100);
+    robot.go(10, 70);                  //If object is to the left, make the robot turn left
   }
-  else if(disR<threshhold) {
+  else if(disR<threshold) {
     Serial.println("To the right!");
-    robot.go(100, 10);
+    robot.go(70, 10);                  //If object is to the right, make the robot turn lefrightt
   }
   else {
     Serial.println("Nothing there!");
-    robot.stop();
+    robot.stop();                       //If there's nothing there, stop the robot
   }
 
   delay(100);

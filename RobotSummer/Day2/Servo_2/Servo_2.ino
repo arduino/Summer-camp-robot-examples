@@ -1,27 +1,35 @@
-// Sweep
-// by BARRAGAN <http://barraganstudio.com> 
-// This example code is in the public domain.
+/*
+  Servo_2
+ 
+ This example makes a servo, connected to DP4 on the Svante robot, sweep 
+ from one side to the other and then back.
+ 
+ This example is based on the Sweep example included in the 
+ Arduino IDE, modified for the Svante robot summer camp.
+ zgz.verkstad.cc 
+ (c) 2014 Arduino Verkstad
+ */
 
 #include <Svante.h>
 #include <Servo.h> 
  
-Servo myservo;  // create servo object to control a servo 
-int servoPin = DP4;                // a maximum of eight servo objects can be created 
+Servo myservo;  
+int servoPin = DP4;                
  
 int pos = 0;    // variable to store the servo position 
  
 void setup() { 
-  myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object 
+  myservo.attach(servoPin);  
 } 
  
  
 void loop() { 
-  for(pos = 0; pos < 180; pos++){                                  // in steps of 1 degree 
-    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+  for(pos = 0; pos < 180; pos++){   // in steps of 1 degree 
+    myservo.write(pos);             // tell servo to go to position in variable 'pos' 
     delay(5);                       // waits 5ms for the servo to reach the position 
   } 
-  for(pos = 180; pos>=1; pos--){                                
-    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+  for(pos = 180; pos>=1; pos--){    // in steps of 1 degree                             
+    myservo.write(pos);             // tell servo to go to position in variable 'pos' 
     delay(5);                       // waits 5ms for the servo to reach the position 
   } 
 } 

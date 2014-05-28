@@ -1,21 +1,69 @@
-#include <Svante.h>
+
+/*
+
+*/
+
 #include <IRremote.h>
+#include <IRremoteTools.h>
+#include <Svante.h>
 
-int receiverPin = DP0;
+const int RECV_PIN = DP0;            //Define the receiver pin
+const unsigned long TIMER_MAX=200;   //Timeout for when no repeat frame is received
 
-IRrecv receiver(receiverPin);
+boolean pressed=false;
+unsigned long IRtimer=0;	     //Timer for keep pressed key
 
-decode_results results;
-
-void setup()
-{
-  Serial.begin(9600); //Starts serail communication
-  receiver.enableIRIn(); // Start the receiver
+void setup(){
+  Serial.begin(9600);                //Initialize the serial communication
+  beginIRremote(RECV_PIN);           //Initialze the remote
+  IRtimer=millis();                  
 }
 
-void loop() {
-  if (receiver.decode(&results)) {
-    Serial.println(results.value, HEX); //Prints the readings to the serial monitor
-    receiver.resume(); // Receive the next value
+void loop(){  
+  //if a signal is received
+  if(IRrecived()){   
+    unsigned long command=getIRresult();  //decode the signal
+    
+    IRtimer=millis();    //Reset the timer
+    pressed=true;        
+    
+    doStuff(command);    //Do you stuff here depending on the command
+    resumeIRremote();    //resume the receiver
   }
+  
+  //If the button is released
+  if(pressed && millis()-IRtimer>TIMER_MAX){ 
+    pressed=false;
+    Serial.println("released");
+  }
+}
+
+void doStuff(unsigned long command){
+  
+  //Decide what to do depending on the received data
+  //Here we print to the serial monitor what button is pressed.
+  switch(command){
+    case REMOTE_UP: 
+      Serial.println("forward");
+      break;
+    case REMOTE_DOWN:
+      Serial.println("backwards");
+      break;
+    case REMOTE_LEFT:
+      Serial.println("left");
+      break;
+    case REMOTE_RIGHT:
+      Serial.println("right");
+      break;
+    case REMOTE_MIDDLE:
+      Serial.println("middle");
+      break;
+    case REMOTE_MINUS:
+      Serial.println("minus");
+      break;
+    case REMOTE_PLUS:
+      Serial.println("plus");
+      break;
+  }
+
 }

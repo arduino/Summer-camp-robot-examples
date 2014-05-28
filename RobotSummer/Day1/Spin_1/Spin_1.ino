@@ -1,3 +1,14 @@
+/*
+  Spin_1
+ 
+ This example makes the Svante robot spin counterclockwise for 1 second,
+ stop 1 second, spin clockwise 1 second and finally stopfor another second.
+ 
+ This is an example from the Svante robot summer camp.
+ zgz.verkstad.cc 
+ (c) 2014 Arduino Verkstad
+ */
+
 #include <Svante.h>
 
 void setup(){
@@ -5,12 +16,19 @@ void setup(){
 }
 
 void loop(){
-  robot.go(-100,100);
+  
+  //Sets left wheel to top speed backwards, right wheel to top speed forward
+  //Makes the robot spin counterclockwise
+  robot.go(-100,100); 
   delay(1000);
-  robot.stop();
+  robot.stop(); //Stops both wheels
   delay(1000);
+  
+  //Sets left wheel to top speed forward, right wheel to top speed backwards
+  //Makes the robot spin clockwise  
   robot.go(100,-100);
   delay(1000);
-  robot.stop();
+  robot.stop(); //Stops both wheels
   delay(1000);
 }
+
