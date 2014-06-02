@@ -15,6 +15,7 @@
  */
 
 #include <Svante.h>
+#include <EEPROM.h>
 #include <Servo.h>
 
 

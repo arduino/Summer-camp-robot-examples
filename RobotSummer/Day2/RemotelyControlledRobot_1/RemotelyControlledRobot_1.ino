@@ -14,6 +14,7 @@
 #include <IRremote.h>
 #include <IRremoteTools.h>
 #include <Svante.h>
+#include <EEPROM.h>
 
 const int RECV_PIN = DP0;            //Define the receiver pin
 const unsigned long TIMER_MAX=200;   //Timeout for when no repeat frame is received

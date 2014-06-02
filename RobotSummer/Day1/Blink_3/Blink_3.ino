@@ -10,7 +10,8 @@
  */
 
 #include <Svante.h>
- 
+#include <EEPROM.h>
+
 int ledPin = DP0;
  
 void setup() {

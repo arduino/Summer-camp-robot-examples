@@ -11,6 +11,7 @@
  */
 
 #include <Svante.h>
+#include <EEPROM.h>
 
 int trigR = A1;
 int echoR = A1;

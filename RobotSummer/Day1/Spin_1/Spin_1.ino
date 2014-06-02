@@ -10,6 +10,7 @@
  */
 
 #include <Svante.h>
+#include <EEPROM.h>
 
 void setup(){
   robot.begin();

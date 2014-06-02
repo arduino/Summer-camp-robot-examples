@@ -10,6 +10,7 @@
  */
 
 #include <Svante.h>
+#include <EEPROM.h>
 #include <Servo.h> //Include the servo library
 
 Servo myservo;  // create servo object to control a servo 

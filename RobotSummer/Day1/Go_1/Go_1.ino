@@ -10,6 +10,7 @@
  */
 
 #include <Svante.h>
+#include <EEPROM.h>
 
 void setup(){
   robot.begin(); //Initializes the Svante library so we can control the wheels

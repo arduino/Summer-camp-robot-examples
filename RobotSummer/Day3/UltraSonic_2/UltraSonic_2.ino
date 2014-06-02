@@ -10,6 +10,7 @@
  */
 
 #include <Svante.h>
+#include <EEPROM.h>
 
 int trig = DP8;
 int echo=DP8;

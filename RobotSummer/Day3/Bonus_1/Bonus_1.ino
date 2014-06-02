@@ -2,6 +2,7 @@
   
 */
 #include <Svante.h>
+#include <EEPROM.h>
 
 int ir_leds[] ={IR_1, IR_2, IR_3};
 int delayTime = 100;

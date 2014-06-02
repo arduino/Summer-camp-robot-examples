@@ -11,6 +11,7 @@
  */
 
 #include <Svante.h>
+#include <EEPROM.h>
 #include "pitches.h"
 
 // notes in the melody: (0 is silence)

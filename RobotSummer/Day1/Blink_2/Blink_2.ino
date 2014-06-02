@@ -10,7 +10,8 @@
  */
 
 #include <Svante.h> //Include the Svante library
- 
+#include <EEPROM.h> 
+
 void setup() {                
   pinMode(DP0, OUTPUT); //Initialize digital pin DP0 as an output
  }
