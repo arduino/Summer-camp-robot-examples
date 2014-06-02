@@ -1,67 +1,90 @@
-#include <Svante.h>
+/*
+  RemotelyControlledRobot_1
+ 
+ This example shows how to use the Tinkerkit remote with an IR receiver 
+ (It's recommended to use a Tsop2238). The IR receiver is connected to 
+ DP0 on the Svante robot. The robot goes forward, backwards, and turns 
+ left or right according to the buttons you press.
+ 
+ This is an example from the Svante robot summer camp.
+ zgz.verkstad.cc 
+ (c) 2014 Arduino Verkstad
+ */
+
 #include <IRremote.h>
+#include <IRremoteTools.h>
+#include <Svante.h>
 
-const long PLUS = 0xE4B3B847;
-const long MINUS = 0xE4B3F00F;
-const long UP = 0xE4B308F7;
-const long DOWN = 0xE4B3D827;
-const long LEFT = 0xE4B350AF;
-const long RIGHT = 0xE4B3F807;
-const long MIDDLE = 0xE4B310EF;
+const int RECV_PIN = DP0;            //Define the receiver pin
+const unsigned long TIMER_MAX=200;   //Timeout for when no repeat frame is received
 
-int recieverPin = DP0;
-IRrecv reciever(recieverPin);
-decode_results results;
+boolean pressed=false;
+unsigned long IRtimer=0;	     //Timer for keep pressed key
 
-//Timeout variables
-long currentMillis, previousMillis = 0;
-long timeOut = 150;
-boolean checkTimer = false;
-
+int maxSpeed = 100;
+int turnSpeed = 70;
 
 void setup(){
-  Serial.begin(9600);
-  reciever.enableIRIn(); // Start the receiver
-  robot.begin();
+  Serial.begin(9600);                //Initialize the serial communication
+  beginIRremote(RECV_PIN);           //Initialze the remote
+  IRtimer=millis();              
+  
+  robot.begin();  
 }
 
-void loop() {
-  if (reciever.decode(&results)) {
+void loop(){  
+  //if a signal is received
+  if(IRreceived()){   
+    unsigned long command=getIRresult();  //decode the signal
 
-    //Decide what to do
-    if(results.value == PLUS){ 
-      //Do nothing
-    }
-    else if(results.value == MINUS){
-      //Do nothing
-    }
-    else if(results.value == UP){ 
-      robot.go(100, 100); //Move forward
-    }
-    else if(results.value == DOWN){ 
-      robot.go(-100, -100); //Move backwards
-    }
-    else if(results.value == LEFT){ 
-      robot.go(-100, 100); //Spin left
-    }
-    else if(results.value == RIGHT){ 
-      robot.go(100, -100); //Spin Right
-    }
-    else if(results.value == MIDDLE){ 
-      //Do nothing
-    }
+    IRtimer=millis();    //Reset the timer
+    pressed=true;        
 
-    reciever.resume(); // Receive the next value
-    
-    //reset timer
-    previousMillis = millis();
-    checkTimer = true;
+    doStuff(command);    //Do you stuff here depending on the command
+    resumeIRremote();    //resume the receiver
   }
-  else{
-    //If all buttons are releasede, stop the robot
-    if(millis()-previousMillis > timeOut && checkTimer){
-      robot.stop();
-      checkTimer = false;
-    }     
+
+  //If the button is released
+  if(pressed && millis()-IRtimer>TIMER_MAX){ 
+    pressed=false;
+    Serial.println("released");
+    robot.stop();                  //Stop robot when button is released
   }
 }
+
+void doStuff(unsigned long command){
+
+  //Decide what to do depending on the received data
+  //Here we print to the serial monitor what button is pressed.
+  switch(command){
+  case REMOTE_UP: 
+    Serial.println("forward");
+    robot.go(maxSpeed, maxSpeed);    //Move forward
+    break;
+  case REMOTE_DOWN:
+    Serial.println("backwards");
+    robot.go(-maxSpeed, -maxSpeed);  //Move backwards
+    break;
+  case REMOTE_LEFT:
+    Serial.println("left");
+    robot.go(0, turnSpeed);   //Turn left
+    break;
+  case REMOTE_RIGHT:
+    Serial.println("right");
+    robot.go(turnSpeed, 0);   //Turn right
+    break;
+  case REMOTE_MIDDLE:
+    Serial.println("middle");
+    break;
+  case REMOTE_MINUS:
+    Serial.println("minus");
+    break;
+  case REMOTE_PLUS:
+  
+    Serial.println("plus");
+    break;
+  }
+
+}
+
+

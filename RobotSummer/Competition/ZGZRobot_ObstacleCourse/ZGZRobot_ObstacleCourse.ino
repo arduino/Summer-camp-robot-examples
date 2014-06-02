@@ -6,8 +6,8 @@
 
 Servo claw;
 
-const int SERVO_PIN = DP8;
-const int RECV_PIN = DP9;
+const int SERVO_PIN = DP4;
+const int RECV_PIN = DP0;
 
 const int SERVO_MAX = 170;
 const int SERVO_SPEED = 10;
@@ -23,12 +23,13 @@ int currentSDir;//current servo direction
 int currentSPos;//current servo position
 
 const unsigned long TIME_OUT=200;
-const int ROBOT_SPEED=70;
+const int ROBOT_SPEED=100;
 
 void setup()
 {
   robot.begin();
   Serial.begin(9600);
+  claw.attach(SERVO_PIN);
   beginIRremote(RECV_PIN); // Start the receiver
   currentSDir=0;
   currentSPos=0;
@@ -42,7 +43,7 @@ void loop() {
 
 
 void getCommand(){
-  if (IRrecived()) {
+  if (IRreceived()) {
     unsigned long command=getIRresult();
     //Serial.println(command,HEX);
 
@@ -55,10 +56,10 @@ void getCommand(){
           moveRobot(-ROBOT_SPEED,-ROBOT_SPEED);
           break;
         case REMOTE_LEFT:
-          moveRobot(-ROBOT_SPEED,ROBOT_SPEED);
+          moveRobot(0,ROBOT_SPEED);
           break;
         case REMOTE_RIGHT:
-          moveRobot(ROBOT_SPEED,-ROBOT_SPEED);
+          moveRobot(ROBOT_SPEED,0);
           break;
         case REMOTE_PLUS:
           moveServo(SERVO_SPEED);
@@ -85,8 +86,6 @@ void moveServo(int sDirection){
     stopAll();
     currentMode=SERVO_MODE;
     currentSDir=sDirection;
-    claw.attach(SERVO_PIN);
-
   }
   currentSPos+=currentSDir;
   if(currentSPos<0)currentSPos=0;
@@ -109,7 +108,6 @@ void repeat(){
 }
 void stopAll(){
   //stop all current actions
-  claw.detach();
   robot.stop();
 }
 
