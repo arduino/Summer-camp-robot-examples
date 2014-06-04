@@ -116,5 +116,7 @@ void playMelody(){
     delay(pauseBetweenNotes);
     // stop the tone playing:
     noTone(piezoPin);
+    
   }
+  restartMotors();  
 }

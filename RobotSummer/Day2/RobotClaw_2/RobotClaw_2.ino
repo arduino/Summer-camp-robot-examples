@@ -78,12 +78,12 @@ void doStuff(unsigned long command){
     
   case REMOTE_LEFT:
     Serial.println("left");
-    robot.go(0, maxSpeed);   //Turn left
+    robot.go(0, turnSpeed);   //Turn left
     break;
     
   case REMOTE_RIGHT:
     Serial.println("right");
-    robot.go(maxSpeed, 0);   //Turn right
+    robot.go(turnSpeed, 0);   //Turn right
     break;
     
   case REMOTE_MIDDLE:
@@ -96,6 +96,7 @@ void doStuff(unsigned long command){
     claw.write(70);          //Open claw
     delay(200);
     claw.detach();
+    stopServo();
     break;
     
   case REMOTE_PLUS:
@@ -104,6 +105,7 @@ void doStuff(unsigned long command){
     claw.write(180);        //Close claw
     delay(500);
     claw.detach();
+    stopServo();
     break;
   }
 
