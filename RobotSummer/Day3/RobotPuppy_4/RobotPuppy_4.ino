@@ -1,13 +1,14 @@
+
 /*
   RobotPuppy_4
  
  This example uses two ultrasonic sensors to check wether an object is in front, 
  to the left, or the right of the robot. The left sensor is connected to DP4 and
- the right one to A1 on the Svante robot. When we now where the object is the 
+ the right one to A1 on the Svante robot. When we know where the object is the 
  robot wheels are controlled to move towards the object.
  
  A servo connected to DP4 acts as the robot puppys tail, and moves back and forth
- when an object is close. 
+ when an object is too close. 
  
  This is an example from the Svante robot summer camp.
  zgz.verkstad.cc 
@@ -24,16 +25,17 @@ int echoR = A1;
 int trigL = DP8;
 int echoL = DP8;
 
-int threshold = 70;
+int threshold = 60;
 int stopThreshold = 10;
 
 Servo tail;
 int servoPin = DP4;
 
+int robotSpeed = 70;
+
 void setup(){  
   Serial.begin(9600);    //Initializes the serial communication
   robot.begin();         //Initializes the Svante library
-  tail.attach(servoPin); //Attach the servo pin to the servo object
 }
 
 void loop(){
@@ -46,18 +48,15 @@ void loop(){
     wiggleTail();                        //And wiggle the tail
   }
   else if(disL<threshold && disR<threshold){  Serial.println("In front!");
-    robot.go(70, 70);                  //If object is in front, make the robot go forward                  //If object is in front, make the robot go forward
-    wiggleTail();                      //And wiggle the tail
+    robot.go(robotSpeed, robotSpeed);                  //If object is in front, make the robot go forward                  //If object is in front, make the robot go forward
   }
   else if(disL<threshold){
     Serial.println("To the left!");
-    robot.go(10, 70);                  //If object is to the left, make the robot turn left
-    wiggleTail();                       //And wiggle the tail
+    robot.go(5, robotSpeed);                  //If object is to the left, make the robot turn left
   }
   else if(disR<threshold) {
     Serial.println("To the right!");
-    robot.go(70, 10);                  //If object is to the right, make the robot turn lefrightt  
-    wiggleTail();                       //And wiggle the tail
+    robot.go(robotSpeed, 5);                  //If object is to the right, make the robot turn lefrightt  
   }
   else {
     Serial.println("Nothing there!");
@@ -67,10 +66,13 @@ void loop(){
 
 //Switch the servo position quickly between 45 and 135 degrees
 void wiggleTail(){
+    tail.attach(servoPin);
     tail.write(45);
     delay(100);
     tail.write(135);
     delay(100);
+    tail.detach();
+    stopServo();
 }
 
 
