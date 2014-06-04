@@ -118,5 +118,5 @@ void playMelody(){
     noTone(piezoPin);
     
   }
-  restartMotors();  
+  stopMusic();  
 }

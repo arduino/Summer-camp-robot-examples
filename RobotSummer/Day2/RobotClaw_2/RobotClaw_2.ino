@@ -93,7 +93,7 @@ void doStuff(unsigned long command){
   case REMOTE_MINUS:
     Serial.println("minus");
     claw.attach(servoPin);
-    claw.write(70);          //Open claw
+    claw.write(0);          //Open claw
     delay(200);
     claw.detach();
     stopServo();
@@ -102,7 +102,7 @@ void doStuff(unsigned long command){
   case REMOTE_PLUS:
     Serial.println("plus");
     claw.attach(servoPin); 
-    claw.write(180);        //Close claw
+    claw.write(90);        //Close claw
     delay(500);
     claw.detach();
     stopServo();
