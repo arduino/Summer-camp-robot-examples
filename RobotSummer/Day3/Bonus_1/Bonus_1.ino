@@ -1,5 +1,11 @@
 /*
-  
+ Bonus_1
+ Congratulations! You have found our secret sketch. Upload
+ it to the robot and see the magic.
+ 
+ This is an example from the Svante robot summer camp.
+ zgz.verkstad.cc 
+ (c) 2014 Arduino Verkstad
 */
 #include <Svante.h>
 #include <EEPROM.h>
