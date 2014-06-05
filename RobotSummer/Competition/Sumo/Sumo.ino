@@ -1,17 +1,17 @@
 /*
-*	Robot sumo
-*	Enlist your robot in the robot sumo fight! 
-*	You'll need to attach a ultrasonic sensor to DP4, which is used for the right side of the robot,
-*	another to DP8, which is used for the left side of the robot.
-*	Gear up your robot with cardboard/plastic structures so it gains upper-hand. Make some research
-*	and find out what're the best weaponaries people use in professional robot sumo.
-*	There're also parameters you can customize to make your sumo robot work differently. Read the 
-*	descriptions below to find out how they work
-*
-*	This is an example from the Svante robot summer camp.
-*	zgz.verkstad.cc 
-*	(c) 2014 Arduino Verkstad
-*
+*  Robot sumo
+*  Enlist your robot in the robot sumo fight! 
+*  You'll need to attach a ultrasonic sensor to DP4, which is used for the right side of the robot,
+*  another to DP8, which is used for the left side of the robot.
+*  Gear up your robot with cardboard/plastic structures so it gains upper-hand. Make some research
+*  and find out what're the best weaponaries people use in professional robot sumo.
+*  There're also parameters you can customize to make your sumo robot work differently. Read the 
+*  descriptions below to find out how they work
+*  
+*  This is an example from the Svante robot summer camp.
+*  zgz.verkstad.cc 
+*  (c) 2014 Arduino Verkstad
+*  
 */
 
 #include <Svante.h>
