@@ -203,7 +203,7 @@ int IRrecv::decode(decode_results *results) {
 #ifdef DEBUG
   Serial.println("Attempting NEC decode");
 #endif
-  if (decodeNEC(results,false)) {
+  if (decodeNEC(results,false) || decodeNEC(results,true)) {	//Works both with the wrong TK IRs and right TK IRs.
     return DECODED;
   }
 
