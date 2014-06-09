@@ -25,13 +25,13 @@ int echoR = A1;
 int trigL = DP8;
 int echoL = DP8;
 
-int threshold = 60;
+int threshold = 40;
 int stopThreshold = 10;
 
 Servo tail;
 int servoPin = DP4;
 
-int robotSpeed = 70;
+int robotSpeed = 50;
 
 void setup(){  
   Serial.begin(9600);    //Initializes the serial communication
@@ -47,20 +47,21 @@ void loop(){
     robot.stop();                        //If the robot gets too close to something, stop the robot
     wiggleTail();                        //And wiggle the tail
   }
-  else if(disL<threshold && disR<threshold){  Serial.println("In front!");
-    robot.go(robotSpeed, robotSpeed);                  //If object is in front, make the robot go forward                  //If object is in front, make the robot go forward
+  else if(disL<threshold && disR<threshold){  
+    Serial.println("In front!");
+    robot.go(robotSpeed, robotSpeed);  //If object is in front, make the robot go forward
   }
   else if(disL<threshold){
     Serial.println("To the left!");
-    robot.go(5, robotSpeed);                  //If object is to the left, make the robot turn left
+    robot.go(0, robotSpeed);           //If object is to the left, make the robot turn left
   }
   else if(disR<threshold) {
     Serial.println("To the right!");
-    robot.go(robotSpeed, 5);                  //If object is to the right, make the robot turn lefrightt  
+    robot.go(robotSpeed, 0);          //If object is to the right, make the robot turn lefrightt  
   }
   else {
     Serial.println("Nothing there!");
-    robot.stop();                       //If there's nothing there, stop the robot
+    robot.stop();                     //If there's nothing there, stop the robot
   }
 }
 
