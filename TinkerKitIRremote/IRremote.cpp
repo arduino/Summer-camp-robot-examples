@@ -71,10 +71,17 @@ int MATCH_MARK(int measured_ticks, int desired_us) {return MATCH(measured_ticks,
 int MATCH_SPACE(int measured_ticks, int desired_us) {return MATCH(measured_ticks, (desired_us - MARK_EXCESS));}
 #endif
 
-IRrecv::IRrecv(int recvpin)
-{
+IRrecv::IRrecv(int recvpin){
   irparams.recvpin = recvpin;
   irparams.blinkflag = 0;
+}
+
+IRrecv::IRrecv(){
+  irparams.blinkflag = 0;
+}
+
+void IRrecv::setRecvPin(int recvpin){
+  irparams.recvpin = recvpin;
 }
 
 // initialization

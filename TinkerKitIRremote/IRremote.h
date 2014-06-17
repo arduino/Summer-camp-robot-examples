@@ -54,6 +54,7 @@ public:
 class IRrecv
 {
 public:
+  IRrecv();
   IRrecv(int recvpin);
   void setRecvPin(int recvpin);
   void blink13(int blinkflag);
