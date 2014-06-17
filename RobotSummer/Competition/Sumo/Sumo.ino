@@ -51,7 +51,9 @@ void setup()
 { 
   Serial.begin(9600);
   robot.begin();
-
+  
+  delay(5000);  //The robot starts 5 seconds after the match begins
+  
   currentMode=0;
   searchMode();
 } 
