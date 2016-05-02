@@ -27,8 +27,7 @@
 *  finished.
 *
 *	This example is used together with Svante robot
-*	verkstad.cc 
-*	(c) 2014 Arduino Verkstad
+*	(c) 2014 Arduino LLC
 *
 */
 #include <Svante.h>
