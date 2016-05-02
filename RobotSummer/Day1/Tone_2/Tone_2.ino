@@ -5,8 +5,7 @@
  on the Svante robot.
  
  This is an example from the Svante robot summer camp.
- zgz.verkstad.cc 
- (c) 2014 Arduino Verkstad
+ (c) 2014 Arduino LLC
  */
 
 #include <Svante.h>

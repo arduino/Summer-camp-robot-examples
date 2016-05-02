@@ -5,8 +5,7 @@
  one second, then off for another second.
  
  This is an example from the Svante robot summer camp.
- zgz.verkstad.cc 
- (c) 2014 Arduino Verkstad
+ *  (c) 2014 Arduino LLC
  */
 
 //Setup runs once when the program starts
